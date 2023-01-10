@@ -22,7 +22,7 @@ app.use(cors());
 app.use(morgan("combined"));
 
 //routes
-const authRoutes = require("./src/routes/auth.route")
+const authRoutes = require("./routes/auth.route")
 
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc));
 app.use("/auth", authRoutes)
