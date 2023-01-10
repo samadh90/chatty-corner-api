@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authController = require('../controllers/auth.controller');
+const authController = require("../controllers/auth.controller");
 
 /**
  * @openapi
@@ -29,8 +29,12 @@ const authController = require('../controllers/auth.controller');
  *         description: Successfully registered
  *       400:
  *         description: Invalid request body
+ *     servers:
+ *      - url: /auth
+ *     tags:
+ *      - Auth
  */
-router.post('/register', authController.register);
+router.post("/register", authController.register);
 
 /**
  * @openapi
@@ -56,7 +60,11 @@ router.post('/register', authController.register);
  *         description: Successful login. returns token
  *       400:
  *         description: Invalid credentials
+ *     servers:
+ *      - url: /auth
+ *     tags:
+ *     - Auth
  */
-router.post('/login', authController.login);
+router.post("/login", authController.login);
 
 module.exports = router;

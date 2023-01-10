@@ -1,17 +1,31 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerJsdoc = require("swagger-jsdoc");
 
 // Swagger set up
 const options = {
   swaggerDefinition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Chatty Corner API',
-      version: '1.0.0',
-      description: 'API for the "Chatty Corner" chat web application'
+      title: "Chatty Corner API",
+      version: "1.0.0",
+      description: 'API for the "Chatty Corner" chat web application',
     },
-    servers: [{url: `http://localhost:3000`}],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+    servers: [{ url: `http://localhost:3000` }],
   },
-  apis: ['./src/routes/*.js']
+  apis: ["./src/routes/*.route.js", "./src/models/*.js"],
 };
 
 const specs = swaggerJsdoc(options);
