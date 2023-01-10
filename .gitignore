@@ -1,0 +1,29 @@
+node_modules/
+
+# build folders or files
+dist/
+build/
+
+# temp folders and files
+temp/
+tmp/
+
+# logs
+*.log
+npm-debug.log*
+
+# environment files
+.env
+
+# config files
+config/
+
+# coverage
+coverage/
+
+# all tests
+__tests__/
+*.test.js
+
+# local modules
+local_modules/
