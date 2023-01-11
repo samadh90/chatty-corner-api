@@ -1,30 +1,30 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+const validateJwtToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
     // Check for presence of authorization header
     if (!authHeader) {
       return res.status(401).json({
-        message: 'Authorization header is missing'
+        message: "Authorization header is missing",
       });
     }
 
     // Check that the authorization header is in the correct format
-    if (authHeader.split(' ')[0] !== 'Bearer') {
+    if (authHeader.split(" ")[0] !== "Bearer") {
       return res.status(401).json({
-        message: 'Authorization header is not in the correct format'
+        message: "Authorization header is not in the correct format",
       });
     }
 
     // Extract the token from the authorization header
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(" ")[1];
 
     // Check for presence of token
     if (!token) {
       return res.status(401).json({
-        message: 'Token is missing'
+        message: "Token is missing",
       });
     }
 
@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (error) => {
       if (error) {
         return res.status(401).json({
-          message: 'Auth failed'
+          message: "Auth failed",
         });
       }
 
@@ -40,7 +40,9 @@ module.exports = (req, res, next) => {
     });
   } catch (error) {
     return res.status(401).json({
-      message: 'Auth failed'
+      message: "Auth failed",
     });
   }
 };
+
+module.exports = validateJwtToken;

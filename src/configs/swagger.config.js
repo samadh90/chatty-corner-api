@@ -1,4 +1,5 @@
 const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 // Swagger set up
 const options = {
@@ -28,5 +29,17 @@ const options = {
   apis: ["./src/routes/*.route.js", "./src/models/*.js"],
 };
 
-const specs = swaggerJsdoc(options);
-module.exports = specs;
+const swaggerSpec = swaggerJsdoc(options);
+
+const swaggerDocs = (app, port) => {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  app.get("/docs.json", (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+    res.send(swaggerSpec);
+  });
+
+  console.info(`Swagger docs available at http://localhost:${port}/api-docs`);
+};
+
+module.exports = swaggerDocs;
