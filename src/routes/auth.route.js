@@ -14,9 +14,9 @@ const authController = require("../controllers/auth.controller");
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               username:
  *                 type: string
- *                 description: The name of the user.
+ *                 description: The username of the user.
  *               email:
  *                 type: string
  *                 format: email
@@ -29,8 +29,6 @@ const authController = require("../controllers/auth.controller");
  *         description: Successfully registered
  *       400:
  *         description: Invalid request body
- *     servers:
- *      - url: /auth
  *     tags:
  *      - Auth
  */
@@ -60,8 +58,6 @@ router.post("/register", authController.register);
  *         description: Successful login. returns token
  *       400:
  *         description: Invalid credentials
- *     servers:
- *      - url: /auth
  *     tags:
  *     - Auth
  */

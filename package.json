@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/app.js",
-    "watch": "nodemon --watch routes -e js --exec \"npm run swagger\"",
-    "dev": "nodemon ./src/app.js",
-    "dev:watch": "nodemon --watch routes -e js --exec \"npm run dev\"",
-    "swagger": "node ./src/swagger.js"
+    "start": "node src/main.js",
+    "watch": "nodemon --watch src/routes -e js --exec \"npm run swagger\"",
+    "dev": "nodemon src/main.js",
+    "swagger": "node swagger.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +23,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
     "morgan": "^1.10.0",
+    "nodemailer": "^6.8.0",
     "swagger-jsdoc": "^6.2.7",
     "swagger-ui-express": "^4.6.0"
   },

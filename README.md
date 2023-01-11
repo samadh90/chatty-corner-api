@@ -42,3 +42,29 @@ You can also refer the swagger documentation on '/api-docs' route to see the lis
 
 You are welcome to contribute to this project by opening a pull request with any new feature or bug fix.
 Please make sure to follow the project's coding conventions and to write tests for any new code.
+```
+chatty-corner-api
+├─ .gitignore
+├─ package-lock.json
+├─ package.json
+├─ README.md
+└─ src
+   ├─ app.js
+   ├─ controllers
+   │  ├─ auth.controller.js
+   │  └─ user.controller.js
+   ├─ middlewares
+   │  └─ auth.middleware.js
+   ├─ models
+   │  ├─ forms
+   │  │  └─ register.form.js
+   │  └─ user.model.js
+   ├─ routes
+   │  └─ auth.route.js
+   ├─ swagger.js
+   ├─ tools
+   │  └─ tools.js
+   └─ utilities
+      ├─ cryptography.js
+      └─ date.js
+```
