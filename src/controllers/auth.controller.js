@@ -1,7 +1,6 @@
-// import cryptography.js from utilies
 const crypto = require("../utilities/cryptography");
-// import mangoose user model
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -19,7 +18,9 @@ const register = async (req, res, next) => {
     return res.status(400).json({ message: "Password less than 6 characters" });
   }
 
-  const { passwordSalt, hashedPassword } = await crypto.saltHashPasswordBcrypt(password);
+  const { passwordSalt, hashedPassword } = await crypto.saltHashPasswordBcrypt(
+    password
+  );
 
   console.log(`password: ${passwordSalt}`);
 
@@ -61,6 +62,29 @@ const login = async (req, res, next) => {
     username: username,
     password: password,
   };
+  // get user from database by username
+  const userFromDB = await User.findOne({ username: username });
+
+  // check if user exists
+  if (!userFromDB) {
+    return res.status(400).json({
+      message: "User not found",
+    });
+  }
+
+  // check if password is correct
+  const isPasswordCorrect = await crypto.checkPasswordBcrypt(
+    password,
+    userFromDB.salt,
+    userFromDB.pwd_hash
+  );
+
+  if (!isPasswordCorrect) {
+    return res.status(400).json({
+      message: "Password is not correct",
+    });
+  }
+
   // Create a variable called 'token' that will store the user's token
   const token = jwt.sign(user, process.env.JWT_SECRET);
   // Return a 200 status code and the user's token

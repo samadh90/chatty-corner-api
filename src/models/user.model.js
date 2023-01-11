@@ -1,4 +1,5 @@
 const Mongoose = require("mongoose");
+const global = require("../globals");
 
 const UserSchema = new Mongoose.Schema({
   email: {
@@ -25,7 +26,7 @@ const UserSchema = new Mongoose.Schema({
   },
   status: {
     type: String,
-    default: "online",
+    default: global.status.online,
     required: true,
   },
   last_seen: {

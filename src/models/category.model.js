@@ -3,7 +3,6 @@
 const Mongoose = require("mongoose");
 
 const CategorySchema = new Mongoose.Schema({
-  _id: Mongoose.Schema.Types.ObjectId,
   name: {
     type: String,
     unique: true,
