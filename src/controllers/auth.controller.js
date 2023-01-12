@@ -1,4 +1,4 @@
-const crypto = require("../utilities/cryptography");
+const crypto = require("../utils/cryptography");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const schemas = require("../models/schemas");

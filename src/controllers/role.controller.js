@@ -1,6 +1,7 @@
 // import roleschema
 const schemas = require("../models/schemas");
 const Role = require("../models/role.model");
+const utils = require("../utils/validators");
 
 const getAllRoles = async (req, res) => {
   try {
@@ -14,16 +15,21 @@ const getAllRoles = async (req, res) => {
   }
 };
 
-// create and save a new role
+/**
+ * Create a new role in the database
+ * 
+ * @param {Object} req - Express request object. It should contain the role's data in the body.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - A JSON object containing the newly created role. If there is an error, the returned object will contain an error message.
+ */
 const createRole = async (req, res) => {
-  const formData = req.body;
-  const { error } = schemas.roleSchema.validate(formData);
-  if (error) {
-    console.error(error);
+  const validationResult = utils.validateFormData(req.body, schemas.roleSchema);
+  if (!validationResult.isValid) {
     return res.status(400).json({
-      message: error.details[0].message,
+      message: validationResult.message,
     });
   }
+
   try {
     const role = await Role.create(req.body);
     res.status(200).json(role);
@@ -48,6 +54,12 @@ const getRoleById = async (req, res) => {
 };
 
 const updateRoleById = async (req, res) => {
+  const validationResult = utils.validateFormData(req.body, schemas.roleSchema);
+  if (!validationResult.isValid) {
+    return res.status(400).json({
+      message: validationResult.message,
+    });
+  }
   try {
     const role = await Role.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
