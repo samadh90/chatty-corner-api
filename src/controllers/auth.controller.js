@@ -1,6 +1,7 @@
 const crypto = require("../utilities/cryptography");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const schemas = require("../models/schemas");
 
 const register = async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -46,6 +47,15 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
+  const formData = req.body;
+  const { error } = schemas.loginSchema.validate(formData);
+
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message,
+    });
+  }
+
   // Create a variable called 'username' that will store the username of the user
   const username = req.body.username;
   // Create a variable called 'password' that will store the password of the user
@@ -105,6 +115,6 @@ const resetPassword = async (req, res, next) => {
 };
 
 module.exports = {
-  register: register,
-  login: login,
+  register,
+  login,
 };

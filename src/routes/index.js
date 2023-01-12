@@ -1,7 +1,6 @@
-const authRoute = require("./auth.route");
-
 const routes = {};
 
-routes.authRoute = authRoute;
+routes.authRoute = require("./auth.route");
+routes.roleRoute = require("./role.route");
 
 module.exports = routes;

@@ -26,7 +26,7 @@ const options = {
     ],
     servers: [{ url: `http://localhost:3000` }],
   },
-  apis: ["./src/routes/*.route.js", "./src/models/*.js"],
+  apis: ["./src/routes/*.route.js", "./src/models/*.js", "./src/models/schemas/*.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

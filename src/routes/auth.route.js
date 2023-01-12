@@ -3,56 +3,39 @@ const router = express.Router();
 const authController = require("../controllers/auth.controller");
 
 /**
- * @openapi
+ * @swagger
  * /register:
  *   post:
- *     description: Register a new user
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *                 description: The username of the user.
- *               email:
- *                 type: string
- *                 format: email
- *                 description: The email of the user.
- *               password:
- *                 type: string
- *                 description: The password of the user.
- *     responses:
- *       201:
- *         description: Successfully registered
- *       400:
- *         description: Invalid request body
- *     tags:
- *      - Auth
+ *      summary: Register a new user
+ *      description: Register a new user
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/RegisterSchema'
+ *      responses:
+ *          201:
+ *              description: Successfully registered
+ *          400:
+ *              description: Invalid request body
+ *      tags:
+ *          - Auth
  */
 router.post("/register", authController.register);
 
 /**
- * @openapi
+ * @swagger
  * /login:
  *   post:
+ *     summary: Login user
  *     description: Login user
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 description: The email of the user.
- *               password:
- *                 type: string
- *                 description: The password of the user.
+ *             $ref: '#/components/schemas/LoginSchema'
  *     responses:
  *       200:
  *         description: Successful login. returns token

@@ -5,7 +5,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const swaggerDocs = require("./configs/swagger.config.js");
 const nodemailer = require("./tools/nodemailer");
-const dbConnection = require("./configs/db.config");
+const dbConnection = require("./configs/mongoDb.config");
 const routes = require("./routes");
 
 require("dotenv").config();
@@ -33,6 +33,7 @@ app.use(morgan("combined"));
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc));
 
 app.use("/auth", routes.authRoute);
+app.use("/roles", routes.roleRoute);
 
 app.get("/create-validation-link", (req, res) => {
   let domain = req.headers.host;
