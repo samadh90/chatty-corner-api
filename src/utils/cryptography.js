@@ -54,8 +54,12 @@ const checkHashPassword = (userpassword, salt) => {
   return passwordData;
 };
 
-// RSA Encrypt and return the encrypted value
+
+// encrypts input using RSA
+// input: string
+// returns: encrypted string
 const encryptRSA = (input) => {
+  //Generate RSA public/private key pair
   const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
     modulusLength: 4096,
     publicKeyEncoding: {
@@ -68,6 +72,8 @@ const encryptRSA = (input) => {
       cipher: "aes-256-cbc",
     },
   });
+
+  //Encrypt input using RSA public key
   const encrypted = crypto.publicEncrypt(
     {
       key: publicKey,
@@ -76,6 +82,8 @@ const encryptRSA = (input) => {
     },
     Buffer.from(input)
   );
+
+  //Return encrypted input as base64 string
   return encrypted.toString("base64");
 };
 

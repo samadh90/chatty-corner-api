@@ -1,25 +1,30 @@
 const jwt = require("jsonwebtoken");
 
+// This function validates the jwt token.
+// The function is called by the express middleware
+// function, which is passed in the request and response
+// objects.
+// If the token is valid, the function calls next()
+// to pass control to the next middleware function.
+// If the token is invalid, the function returns an error.
 const validateJwtToken = (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-
     // Check for presence of authorization header
-    if (!authHeader) {
+    if (!req.headers.authorization) {
       return res.status(401).json({
         message: "Authorization header is missing",
       });
     }
 
     // Check that the authorization header is in the correct format
-    if (authHeader.split(" ")[0] !== "Bearer") {
+    if (req.headers.authorization.split(" ")[0] !== "Bearer") {
       return res.status(401).json({
         message: "Authorization header is not in the correct format",
       });
     }
 
     // Extract the token from the authorization header
-    const token = authHeader.split(" ")[1];
+    const token = req.headers.authorization.split(" ")[1];
 
     // Check for presence of token
     if (!token) {
