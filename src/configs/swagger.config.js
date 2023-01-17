@@ -1,5 +1,6 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../../swagger.json");
 
 // Swagger set up
 const options = {
@@ -13,6 +14,7 @@ const options = {
     components: {
       securitySchemes: {
         bearerAuth: {
+          description: "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer { token }\"",
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
@@ -32,7 +34,7 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const swaggerDocs = (app, port) => {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.get("/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");

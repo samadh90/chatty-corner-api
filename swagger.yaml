@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Chatty Corner - API 1.0
+  description: |-
+    API for the "Chatty Corner" chat web application
+  contact:
+    email: user@hotmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: auth
+    description: The auth managing API
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login user
+      description: Login user
+      requestBody:
+        description: Connecte and receive a token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful login. returns token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenSchema'
+        '400':
+          description: Invalid credentials
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: Logout user
+      description: Logout user
+      requestBody:
+        description: Cancels the user's access and refresh tokens
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful logout
+        '400':
+          description: Invalid request body
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Refresh the user's token
+      description: Refresh the user's token
+      requestBody:
+        description: Refreshes the user's access token
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenSchema"
+        required: true
+      responses:
+        '200':
+          description: Successfuly refreshes
+        '400':
+          description: Invalid request body
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      description: Register a new user
+      requestBody:
+        description: Create a new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterSchema'
+        required: true
+      responses:
+        '201':
+          description: Successfully registered
+        '405':
+          description: Invalid request body
+  /auth/password/forgot:
+    post:
+      tags:
+        - auth
+      summary: Request a password reset
+      description: Request a password reset
+      requestBody:
+        description: Reset a password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterSchema'
+        required: true
+      responses:
+        '200':
+          description: Password reset requested
+        '400':
+          description: Invalid request body
+  /auth/password/resset:
+    post:
+      tags:
+        - auth
+      summary: Reset a password
+      description: Reset a password
+      requestBody:
+        description: Reset a password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterSchema'
+        required: true
+      responses:
+        '200':
+          description: Password reset requested
+        '400':
+          description: Invalid request body
+components:
+  schemas:
+    LoginSchema:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    TokenSchema:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+    RegisterSchema:
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+  securitySchemes:
+    bearerAuth:
+      description: JWT Authorization header using the Bearer scheme.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
