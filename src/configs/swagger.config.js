@@ -14,7 +14,8 @@ const options = {
     components: {
       securitySchemes: {
         bearerAuth: {
-          description: "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer { token }\"",
+          description:
+            'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer { token }"',
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
@@ -28,7 +29,11 @@ const options = {
     ],
     servers: [{ url: `http://localhost:3000` }],
   },
-  apis: ["./src/routes/*.route.js", "./src/models/*.js", "./src/models/schemas/*.js"],
+  apis: [
+    "./src/routes/*.route.js",
+    "./src/models/*.js",
+    "./src/models/schemas/*.js",
+  ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
